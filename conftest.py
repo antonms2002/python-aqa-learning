@@ -1,4 +1,3 @@
-import requests
 import pytest
 from client import BookerClient
 
@@ -29,3 +28,17 @@ def create_booking_body():
         "additionalneeds": "Breakfast"
     }
     return create_booking_body
+
+@pytest.fixture
+def update_booking_body():
+    update_booking_body = {
+    "firstname" : "Donald",
+    "lastname" : "Trump",
+    "totalprice" : 777,
+    "depositpaid" : True,
+    "bookingdates" : {
+        "checkin" : "2018-01-01",
+        "checkout" : "2019-01-03"
+    }
+    }
+    return update_booking_body

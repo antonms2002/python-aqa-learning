@@ -1,18 +1,25 @@
 from pydantic import BaseModel
 
-class CreateBookingDates(BaseModel):
+#Схема create booking и update booking
+class BookingDates(BaseModel):
     checkin: str
     checkout: str
 
-class CreateBookingBooking(BaseModel):
+class Booking(BaseModel):
     firstname: str
     lastname: str
     totalprice: float
     depositpaid: bool
-    bookingdates: CreateBookingDates
+    bookingdates: BookingDates
     additionalneeds: str | None = None
 
-class CreateBooking(BaseModel):
+class BookingResponse(BaseModel):
     bookingid: int
-    booking: CreateBookingBooking
+    booking: Booking
+
+
+
+
+
+
 
