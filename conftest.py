@@ -1,13 +1,20 @@
+import os
+from dotenv import load_dotenv
 import pytest
 from client import BookerClient
+
+load_dotenv()
 
 @pytest.fixture(scope="session")
 def booker():
     # 1. Создаем объект
     api = BookerClient()
 
+    username = os.getenv("LOGIN")
+    password = os.getenv("PASSWORD")
+
     # 2. Сразу авторизуем его (один раз на всю сессию!)
-    api.authorize("admin", "password123")
+    api.authorize(username, password)
 
     # 3. Отдаем готового, заряженного робота в тесты
     yield api
