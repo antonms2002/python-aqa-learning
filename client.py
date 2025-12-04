@@ -1,3 +1,4 @@
+import allure
 import requests
 
 
@@ -9,6 +10,7 @@ class BookerClient:
         self.token = None  # Пока токена нет
         self._endpoint = 'booking'
 
+    @allure.step("Авторизация")
     def authorize(self, username, password):
         auth_body = {"username": username,
                      "password": password}
@@ -16,19 +18,22 @@ class BookerClient:
         self.token = response_auth.json()["token"]
         self.headers["Cookie"] = f"token={self.token}"
 
-
+    @allure.step("Создание букинга")
     def create_booking(self, payload):
         response_create_booking = requests.post(url=f"{self.base_url}/{self._endpoint}", json=payload,headers=self.headers)
         return response_create_booking
 
+    @allure.step("Удаление букинга")
     def delete_booking(self, booking_id):
         response_delete_booking = requests.delete(url=f"{self.base_url}/{self._endpoint}/{booking_id}", headers=self.headers)
         return response_delete_booking
 
+    @allure.step("Получение букинга")
     def get_booking(self, booking_id):
         response_get_booking = requests.get(url=f"{self.base_url}/{self._endpoint}/{booking_id}", headers=self.headers)
         return response_get_booking
 
+    @allure.step("Обновление букинга")
     def update_booking(self, booking_id, payload):
         response_update_booking = requests.put(url=f"{self.base_url}/{self._endpoint}/{booking_id}", json=payload, headers=self.headers)
         return response_update_booking
